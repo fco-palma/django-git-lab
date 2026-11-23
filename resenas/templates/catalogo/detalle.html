@@ -1,0 +1,25 @@
+<h4>Reseñas ({{ item.resenas.count }})</h4>
+{% for resena in item.resenas.all %}
+    <div class="card mb-2 p-3">
+        <strong>{{ resena.autor }}</strong> — ⭐ {{ resena.puntuacion }}/5
+        <p class="mb-0 mt-1">{{ resena.comentario }}</p>
+    </div>
+{% empty %}
+    <p class="text-muted">Sé el primero en dejar una reseña.</p>
+{% endfor %}
+
+<hr>
+<h5>Agregar una reseña</h5>
+<form method="POST" action="{% url 'agregar_resena' item.id %}" class="card p-3">
+    {% csrf_token %}
+    <input type="text" name="autor" class="form-control mb-2" placeholder="Tu nombre" required>
+    <select name="puntuacion" class="form-select mb-2">
+        <option value="5">5 estrellas</option>
+        <option value="4">4 estrellas</option>
+        <option value="3">3 estrellas</option>
+        <option value="2">2 estrellas</option>
+        <option value="1">1 estrella</option>
+    </select>
+    <textarea name="comentario" class="form-control mb-2" placeholder="Escribe tu opinión..." required></textarea>
+    <button type="submit" class="btn btn-success">Publicar reseña</button>
+</form>
