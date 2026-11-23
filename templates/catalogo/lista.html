@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Catálogo</h2>
+<div class="row">
+    {% for item in items %}
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ item.titulo }} ({{ item.anio }})</h5>
+                <span class="badge bg-secondary mb-2">{{ item.categoria }}</span>
+                <p class="card-text">{{ item.descripcion|truncatewords:15 }}</p>
+                <a href="{% url 'detalle_item' item.id %}" class="btn btn-primary btn-sm">Ver detalle</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No hay elementos aún. Agrega algunos desde /admin.</p>
+    {% endfor %}
+</div>
+{% endblock %}
